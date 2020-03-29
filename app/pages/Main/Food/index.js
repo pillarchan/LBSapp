@@ -4,14 +4,32 @@
  */
 //1.引入核心模块
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Dimensions} from 'react-native';
+import {Text, View, StyleSheet, Dimensions, Image} from 'react-native';
+import DiscountView from './DiscountView';
+import Favorite from './Favorite';
+import NavList from './NavList';
+import TopBar from './TopBar';
 let {width, height, scale} = Dimensions.get('window');
 //2.创建并导出组件
 export default class Food extends Component {
+  static navigationOptions = ({navigation}) => ({
+    title: '美食',
+    tabBarIcon: ({tintColor}) => {
+      return (
+        <Image
+          style={[styles.icon, {tintColor: tintColor}]}
+          source={{uri: 'food'}}
+        />
+      );
+    },
+  });
   render() {
     return (
       <View style={styles.container}>
-        <Text>美食页面</Text>
+        <TopBar />
+        <NavList />
+        <DiscountView />
+        <Favorite />
       </View>
     );
   }
@@ -20,9 +38,11 @@ export default class Food extends Component {
 const styles = StyleSheet.create({
   container: {
     width,
-    height,
-    backgroundColor: '#f1f1f1',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
 });
